@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AREMA BAN — Jual Beli & Layanan Darurat Ban Mobil/Motor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#1c1d21;
+    --asphalt-2:#242529;
+    --charcoal:#2b2d33;
+    --charcoal-2:#35373f;
+    --line:#43454d;
+    --paper:#f2efe8;
+    --paper-dim:#cfcbc0;
+    --ink:#1c1d21;
+    --orange:#ff6a1a;
+    --orange-2:#ff8c4a;
+    --yellow:#ffc53d;
+    --green:#3fb27f;
+    --red:#e5484d;
+    --radius-s:4px;
+    --radius-m:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Archivo Black',sans-serif;
+    font-weight:400;
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  a{ color:inherit; }
+  img,svg{ display:block; }
+  button{ font-family:inherit; cursor:pointer; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+  .hazard-rule{
+    height:6px;
+    background:repeating-linear-gradient(-45deg,var(--orange) 0 14px,var(--asphalt) 14px 28px);
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--asphalt); color:var(--paper);
+    border-bottom:1px solid #000;
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+  }
+  .logo{ display:flex; align-items:center; gap:10px; }
+  .logo .mark{ width:34px; height:34px; }
+  .logo .name{ font-family:'Archivo Black',sans-serif; font-size:19px; letter-spacing:-0.02em; }
+  .logo .name span{ color:var(--orange); }
+  nav.links{ display:flex; gap:28px; }
+  nav.links a{
+    text-decoration:none; font-size:14.5px; font-weight:600; color:var(--paper-dim);
+    padding:6px 0; border-bottom:2px solid transparent; transition:color .15s, border-color .15s;
+  }
+  nav.links a:hover{ color:var(--paper); border-color:var(--orange); }
+  .nav-actions{ display:flex; align-items:center; gap:14px; }
+  .icon-btn{
+    background:none; border:1px solid var(--line); color:var(--paper);
+    width:40px; height:40px; border-radius:var(--radius-s);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .icon-btn:hover{ border-color:var(--orange); }
+  .badge{
+    position:absolute; top:-7px; right:-7px; background:var(--orange); color:#111;
+    font-size:11px; font-weight:800; width:18px; height:18px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; justify-content:center;
+    padding:12px 20px; border-radius:var(--radius-s); font-weight:700; font-size:14.5px;
+    border:1px solid transparent; text-decoration:none; transition:transform .12s, background .15s, border-color .15s;
+  }
+  .btn:active{ transform:scale(.98); }
+  .btn-primary{ background:var(--orange); color:#191100; }
+  .btn-primary:hover{ background:var(--orange-2); }
+  .btn-outline{ background:transparent; border-color:var(--line); color:var(--paper); }
+  .btn-outline:hover{ border-color:var(--paper); }
+  .btn-dark{ background:var(--asphalt); color:var(--paper); }
+  .btn-dark:hover{ background:#000; }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+  .btn-block{ width:100%; }
+  .btn-sm{ padding:9px 14px; font-size:13px; }
+  .menu-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{ background:var(--asphalt); color:var(--paper); position:relative; overflow:hidden; }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center;
+    padding:72px 0 56px;
+  }
+  .eyebrow-strip{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--charcoal); border:1px solid var(--line);
+    padding:7px 12px; border-radius:99px; font-size:12.5px; font-weight:600; color:var(--paper-dim);
+    margin-bottom:22px;
+  }
+  .eyebrow-strip .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:pulse 1.6s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  .hero h1{ font-size:56px; color:var(--paper); }
+  .hero h1 em{ font-style:normal; color:var(--orange); }
+  .hero p.lede{ margin-top:20px; max-width:480px; font-size:17px; line-height:1.6; color:var(--paper-dim); }
+  .hero-ctas{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+  .stat-row{ display:flex; gap:34px; margin-top:44px; padding-top:28px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .stat b{ display:block; font-family:'Archivo Black',sans-serif; font-size:26px; color:var(--paper); }
+  .stat span{ font-size:12.5px; color:var(--paper-dim); }
+
+  .hero-art{ position:relative; }
+  .hero-art svg{ width:100%; height:auto; }
+  .float-card{
+    position:absolute; background:var(--paper); color:var(--ink); border-radius:var(--radius-m);
+    padding:12px 14px; box-shadow:0 18px 40px rgba(0,0,0,.35); font-size:12.5px; font-weight:700;
+    display:flex; align-items:center; gap:9px;
+  }
+  .float-card .ico{ width:26px; height:26px; border-radius:7px; background:var(--yellow); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .float-card.c1{ top:6%; left:-4%; }
+  .float-card.c2{ bottom:10%; right:-2%; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:84px 0; }
+  .sec-head{ max-width:640px; margin-bottom:48px; }
+  .sec-tag{ font-size:13px; font-weight:700; color:var(--orange); margin-bottom:10px; }
+  .sec-head h2{ font-size:36px; color:var(--ink); }
+  .sec-head p{ margin-top:14px; font-size:16px; line-height:1.6; color:#54565f; }
+  .light-on-dark section{ color:var(--paper); }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border:1px solid #d8d4c8; border-radius:var(--radius-m); overflow:hidden;
+  }
+  .step{ padding:28px 24px; border-right:1px solid #d8d4c8; position:relative; background:#fff; }
+  .step:last-child{ border-right:none; }
+  .step .num{ font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--orange); font-size:13px; }
+  .step h3{ font-size:18px; margin-top:14px; }
+  .step p{ margin-top:8px; font-size:14px; line-height:1.55; color:#54565f; }
+  .step .arrow{ position:absolute; right:-11px; top:50%; transform:translateY(-50%); z-index:2; }
+
+  /* ---------- CATALOG ---------- */
+  .cat-tabs{ display:flex; gap:10px; margin-bottom:30px; flex-wrap:wrap; }
+  .cat-tab{
+    padding:10px 18px; border-radius:99px; border:1px solid #d8d4c8; background:#fff;
+    font-weight:700; font-size:13.5px; color:#54565f;
+  }
+  .cat-tab.active{ background:var(--asphalt); color:var(--paper); border-color:var(--asphalt); }
+  .product-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .p-card{
+    background:#fff; border:1px solid #e4e0d4; border-radius:var(--radius-m); overflow:hidden;
+    display:flex; flex-direction:column; transition:box-shadow .15s, transform .15s;
+  }
+  .p-card:hover{ box-shadow:0 14px 30px rgba(28,29,33,.1); transform:translateY(-3px); }
+  .p-thumb{
+    background:var(--asphalt-2); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .p-thumb .tag{
+    position:absolute; top:10px; left:10px; background:var(--yellow); color:#191100;
+    font-size:11px; font-weight:800; padding:4px 8px; border-radius:4px;
+  }
+  .p-thumb svg{ width:64%; height:64%; }
+  .p-body{ padding:16px 16px 18px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .p-brand{ font-size:11.5px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:.03em; }
+  .p-name{ font-size:15.5px; font-weight:700; line-height:1.3; }
+  .p-size{ font-size:13px; color:#75777f; font-family:'IBM Plex Mono',monospace; }
+  .p-note{ font-size:12.5px; color:#75777f; line-height:1.45; margin-top:2px; min-height:34px; }
+  .p-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
+  .p-price{ font-weight:800; font-size:16px; }
+  .add-btn{
+    width:38px; height:38px; border-radius:8px; border:1px solid var(--asphalt); background:var(--asphalt);
+    color:#fff; font-size:20px; line-height:1; display:flex; align-items:center; justify-content:center;
+  }
+  .add-btn:hover{ background:var(--orange); border-color:var(--orange); color:#191100; }
+
+  /* ---------- SERVICE SECTION ---------- */
+  .service-sec{ background:var(--asphalt); color:var(--paper); position:relative; }
+  .service-sec .sec-tag{ color:var(--orange); }
+  .service-sec .sec-head h2{ color:var(--paper); }
+  .service-sec .sec-head p{ color:var(--paper-dim); }
+  .service-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
+  .panel{
+    background:var(--charcoal); border:1px solid var(--line); border-radius:var(--radius-m); padding:30px;
+  }
+  .panel h3{ font-size:19px; margin-bottom:4px; color:var(--paper); }
+  .panel .sub{ font-size:13.5px; color:var(--paper-dim); margin-bottom:22px; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:12.5px; font-weight:700; color:var(--paper-dim); margin-bottom:7px; }
+  .field input, .field textarea, .field select{
+    width:100%; background:var(--asphalt-2); border:1px solid var(--line); color:var(--paper);
+    padding:11px 13px; border-radius:7px; font-family:inherit; font-size:14px;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{ outline:2px solid var(--orange); outline-offset:1px; border-color:var(--orange); }
+  .field textarea{ resize:vertical; min-height:76px; }
+  .vehicle-toggle{ display:flex; gap:10px; }
+  .vehicle-toggle button{
+    flex:1; padding:11px; border-radius:7px; border:1px solid var(--line); background:var(--asphalt-2);
+    color:var(--paper-dim); font-weight:700; font-size:13.5px; display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .vehicle-toggle button.active{ background:var(--orange); border-color:var(--orange); color:#191100; }
+  .loc-row{ display:flex; gap:8px; }
+  .loc-row input{ flex:1; }
+  .loc-btn{
+    white-space:nowrap; background:var(--asphalt-2); border:1px solid var(--line); color:var(--paper);
+    padding:0 14px; border-radius:7px; font-size:13px; font-weight:700;
+  }
+  .loc-btn:hover{ border-color:var(--yellow); color:var(--yellow); }
+  .hint{ font-size:12px; color:var(--paper-dim); margin-top:6px; }
+  .hint.err{ color:#ff9b8f; }
+  .hint.ok{ color:#7fe0b3; }
+
+  /* tracking */
+  .track-empty{ text-align:center; padding:40px 10px; color:var(--paper-dim); }
+  .track-empty svg{ margin:0 auto 16px; }
+  .lookup-row{ display:flex; gap:8px; margin-top:18px; }
+  .lookup-row input{ flex:1; background:var(--asphalt-2); border:1px solid var(--line); color:var(--paper); padding:11px 13px; border-radius:7px; font-family:'IBM Plex Mono',monospace; }
+
+  .track-card-id{ display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+  .track-card-id .code{ font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:600; color:var(--yellow); }
+  .status-pill{ padding:6px 12px; border-radius:99px; font-size:12px; font-weight:800; }
+  .status-pill.p0{ background:#3a3220; color:var(--yellow); }
+  .status-pill.p1{ background:#2c3550; color:#8fb1ff; }
+  .status-pill.p2{ background:#402a1a; color:var(--orange-2); }
+  .status-pill.p3{ background:#183d2e; color:var(--green); }
+
+  .timeline{ display:flex; flex-direction:column; gap:0; margin:20px 0 24px; }
+  .t-item{ display:flex; gap:16px; position:relative; padding-bottom:26px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-line{ position:absolute; left:13px; top:28px; bottom:0; width:2px; background:var(--line); }
+  .t-item.done .t-line, .t-item.active .t-line{ background:var(--orange); }
+  .t-dot{
+    width:28px; height:28px; border-radius:50%; background:var(--asphalt-2); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; z-index:1; font-size:13px; font-weight:800; color:var(--paper-dim);
+  }
+  .t-item.done .t-dot{ background:var(--green); border-color:var(--green); color:#0c2418; }
+  .t-item.active .t-dot{ background:var(--orange); border-color:var(--orange); color:#191100; animation:ringpulse 1.4s infinite; }
+  @keyframes ringpulse{ 0%{ box-shadow:0 0 0 0 rgba(255,106,26,.5);} 70%{ box-shadow:0 0 0 9px rgba(255,106,26,0);} 100%{ box-shadow:0 0 0 0 rgba(255,106,26,0);} }
+  .t-body h4{ font-size:14.5px; font-weight:700; margin:2px 0 4px; color:var(--paper); }
+  .t-body p{ font-size:13px; color:var(--paper-dim); line-height:1.5; margin:0; }
+  .t-body .time{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#8a8d97; margin-top:4px; }
+
+  .demo-note{
+    display:flex; gap:10px; background:#2c260f; border:1px dashed #6b5a1f; color:var(--yellow);
+    padding:12px 14px; border-radius:8px; font-size:12.5px; line-height:1.5; margin-top:16px;
+  }
+
+  /* ---------- WHY / TESTI ---------- */
+  .why-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .why-card{ border:1px solid #e4e0d4; border-radius:var(--radius-m); padding:26px; background:#fff; }
+  .why-card .ico{ width:42px; height:42px; border-radius:9px; background:var(--asphalt); display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+  .why-card h3{ font-size:16.5px; margin-bottom:8px; }
+  .why-card p{ font-size:13.5px; color:#54565f; line-height:1.55; margin:0; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--asphalt); color:var(--paper-dim); }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; padding:56px 0 30px; }
+  .foot-grid h4{ color:var(--paper); font-size:14px; margin-bottom:16px; }
+  .foot-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:13.5px; }
+  .foot-grid a{ text-decoration:none; }
+  .foot-grid a:hover{ color:var(--paper); }
+  .foot-bottom{ border-top:1px solid var(--line); padding:20px 0; display:flex; justify-content:space-between; font-size:12.5px; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- CART DRAWER ---------- */
+  .overlay{ position:fixed; inset:0; background:rgba(10,10,10,.5); z-index:80; opacity:0; pointer-events:none; transition:opacity .2s; }
+  .overlay.show{ opacity:1; pointer-events:auto; }
+  .drawer{
+    position:fixed; top:0; right:0; height:100%; width:400px; max-width:92vw; background:#fff; z-index:90;
+    transform:translateX(100%); transition:transform .25s ease; display:flex; flex-direction:column; box-shadow:-10px 0 40px rgba(0,0,0,.25);
+  }
+  .drawer.show{ transform:translateX(0); }
+  .drawer-head{ display:flex; align-items:center; justify-content:space-between; padding:20px 22px; border-bottom:1px solid #eae7dd; }
+  .drawer-head h3{ font-size:18px; }
+  .drawer-close{ background:none; border:none; font-size:22px; color:#54565f; }
+  .drawer-body{ flex:1; overflow-y:auto; padding:18px 22px; }
+  .cart-item{ display:flex; gap:12px; padding:14px 0; border-bottom:1px solid #f0eee6; }
+  .cart-item .thumb{ width:56px; height:56px; border-radius:7px; background:var(--asphalt-2); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .cart-item .thumb svg{ width:60%; height:60%; }
+  .cart-item .info{ flex:1; }
+  .cart-item .info .n{ font-size:13.5px; font-weight:700; line-height:1.3; }
+  .cart-item .info .s{ font-size:11.5px; color:#8a8d97; font-family:'IBM Plex Mono',monospace; }
+  .qty-row{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+  .qty-btn{ width:24px; height:24px; border-radius:5px; border:1px solid #d8d4c8; background:#fff; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  .cart-item .price{ font-size:13.5px; font-weight:800; white-space:nowrap; }
+  .cart-item .rm{ background:none; border:none; color:#b7b3a6; font-size:12px; margin-top:8px; text-decoration:underline; padding:0; }
+  .drawer-foot{ padding:20px 22px; border-top:1px solid #eae7dd; }
+  .total-row{ display:flex; justify-content:space-between; font-size:15px; font-weight:800; margin-bottom:14px; }
+  .empty-cart{ text-align:center; padding:60px 10px; color:#9a9c9f; }
+
+  .toast-wrap{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:100; display:flex; flex-direction:column; gap:8px; align-items:center; }
+  .toast{ background:var(--asphalt); color:#fff; padding:12px 18px; border-radius:8px; font-size:13.5px; font-weight:600; box-shadow:0 10px 28px rgba(0,0,0,.3); display:flex; align-items:center; gap:10px; animation:toastin .2s ease; }
+  @keyframes toastin{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:translateY(0);} }
+
+  @media (max-width: 920px){
+    .hero-grid{ grid-template-columns:1fr; padding-top:44px; }
+    .hero-art{ order:-1; max-width:340px; margin:0 auto; }
+    .hero h1{ font-size:38px; }
+    .float-card{ display:none; }
+    nav.links{ display:none; }
+    .menu-toggle{ display:flex; }
+    .steps{ grid-template-columns:1fr 1fr; }
+    .step{ border-bottom:1px solid #d8d4c8; }
+    .step .arrow{ display:none; }
+    .product-grid{ grid-template-columns:repeat(2,1fr); }
+    .service-grid{ grid-template-columns:1fr; }
+    .why-grid{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+    .sec-head h2{ font-size:28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="#1c1d21" stroke="#ff6a1a" stroke-width="2.5"/>
+        <circle cx="20" cy="20" r="7" fill="none" stroke="#f2efe8" stroke-width="2.5"/>
+        <g stroke="#f2efe8" stroke-width="2.5" stroke-linecap="round">
+          <line x1="20" y1="4" x2="20" y2="10"/>
+          <line x1="20" y1="30" x2="20" y2="36"/>
+          <line x1="4" y1="20" x2="10" y2="20"/>
+          <line x1="30" y1="20" x2="36" y2="20"/>
+        </g>
+      </svg>
+      <div class="name">AREMA<span>BAN</span></div>
+    </div>
+    <nav class="links">
+      <a href="#katalog">Katalog</a>
+      <a href="#cara-kerja">Cara Kerja</a>
+      <a href="#layanan-darurat">Layanan Darurat</a>
+      <a href="#kenapa-kami">Kenapa Kami</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openCart()" aria-label="Buka keranjang">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg>
+        <span class="badge" id="cartBadge" style="display:none">0</span>
+      </button>
+      <a href="#layanan-darurat" class="btn btn-primary btn-sm">🚨 Panggil Darurat</a>
+    </div>
+  </div>
+  <div class="hazard-rule"></div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" style="padding:0;">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-strip"><span class="dot"></span> Tersedia 24 jam · siaga di jalan raya</div>
+      <h1>Ban bocor di jalan?<br><em>Kami yang datang.</em></h1>
+      <p class="lede">Arema Ban menjual ban mobil &amp; motor dari merek terpercaya, sekaligus punya layanan panggilan darurat kalau ban kamu bocor di tengah perjalanan — lengkap dengan pelacakan status secara langsung.</p>
+      <div class="hero-ctas">
+        <a href="#layanan-darurat" class="btn btn-primary">Panggil Layanan Darurat</a>
+        <a href="#katalog" class="btn btn-outline">Lihat Katalog Ban</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>24 mnt</b><span>rata-rata waktu tiba teknisi</span></div>
+        <div class="stat"><b>120+</b><span>mitra bengkel di kota kamu</span></div>
+        <div class="stat"><b>4.8/5</b><span>penilaian pelanggan</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 480 480" fill="none">
+        <circle cx="240" cy="240" r="200" fill="#242529"/>
+        <circle cx="240" cy="240" r="200" fill="none" stroke="#35373f" stroke-width="1" stroke-dasharray="3 6"/>
+        <circle cx="240" cy="240" r="150" fill="#111214" stroke="#43454d" stroke-width="10"/>
+        <circle cx="240" cy="240" r="150" fill="none" stroke="#ff6a1a" stroke-width="4" stroke-dasharray="14 10" opacity="0.9"/>
+        <circle cx="240" cy="240" r="62" fill="#2b2d33" stroke="#43454d" stroke-width="8"/>
+        <circle cx="240" cy="240" r="14" fill="#f2efe8"/>
+        <g stroke="#f2efe8" stroke-width="9" stroke-linecap="round">
+          <line x1="240" y1="178" x2="240" y2="150"/>
+          <line x1="240" y1="302" x2="240" y2="330"/>
+          <line x1="178" y1="240" x2="150" y2="240"/>
+          <line x1="302" y1="240" x2="330" y2="240"/>
+        </g>
+      </svg>
+      <div class="float-card c1">
+        <div class="ico">🛠️</div> Teknisi menuju lokasi
+      </div>
+      <div class="float-card c2">
+        <div class="ico">✅</div> Ban selesai ditangani
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CARA KERJA ================= -->
+<section id="cara-kerja">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">CARA KERJA</div>
+      <h2>Dari ban bocor sampai jalan lagi, dalam 4 langkah</h2>
+      <p>Setiap laporan darurat punya kode pelacakan sendiri, jadi kamu bisa lihat progresnya dari HP tanpa perlu menelepon berkali-kali.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Isi laporan</h3>
+        <p>Beri tahu lokasi, jenis kendaraan, dan kondisi ban kamu lewat formulir singkat.</p>
+        <svg class="arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6a1a" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Teknisi ditugaskan</h3>
+        <p>Bengkel mitra terdekat menerima laporan dan berangkat membawa peralatan.</p>
+        <svg class="arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6a1a" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Ban ditangani</h3>
+        <p>Teknisi menambal, mengganti, atau memompa ban langsung di lokasi kamu.</p>
+        <svg class="arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6a1a" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <h3>Lanjutkan perjalanan</h3>
+        <p>Status berubah jadi "Selesai" dan kamu bisa lanjut jalan dengan tenang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KATALOG ================= -->
+<section id="katalog" style="background:#eae7dd;">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">TOKO BAN</div>
+      <h2>Katalog ban mobil &amp; motor</h2>
+      <p>Pilih ukuran dan merek yang sesuai kendaraanmu. Semua ban baru, bergaransi resmi dari distributor.</p>
+    </div>
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="semua">Semua</button>
+      <button class="cat-tab" data-cat="mobil">Ban Mobil</button>
+      <button class="cat-tab" data-cat="motor">Ban Motor</button>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- ================= LAYANAN DARURAT ================= -->
+<section id="layanan-darurat" class="service-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">LAYANAN PANGGILAN DARURAT</div>
+      <h2>Lapor sekarang, pantau statusnya secara langsung</h2>
+      <p>Isi lokasi kejadian di sebelah kiri untuk memanggil teknisi. Kode pelacakan akan muncul di panel sebelah kanan dan bisa kamu buka kapan saja.</p>
+    </div>
+
+    <div class="service-grid">
+      <!-- FORM -->
+      <div class="panel">
+        <h3>Laporkan ban bocor</h3>
+        <div class="sub">Teknisi terdekat akan dihubungi begitu laporan terkirim.</div>
+
+        <div class="field">
+          <label>Jenis kendaraan</label>
+          <div class="vehicle-toggle">
+            <button type="button" class="active" data-vehicle="mobil" onclick="setVehicle('mobil')">🚗 Mobil</button>
+            <button type="button" data-vehicle="motor" onclick="setVehicle('motor')">🏍️ Motor</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="fName">Nama</label>
+          <input id="fName" type="text" placeholder="Nama kamu">
+        </div>
+
+        <div class="field">
+          <label for="fPhone">Nomor HP / WhatsApp</label>
+          <input id="fPhone" type="tel" placeholder="Contoh: 081234567890">
+        </div>
+
+        <div class="field">
+          <label for="fLoc">Lokasi kejadian</label>
+          <div class="loc-row">
+            <input id="fLoc" type="text" placeholder="Contoh: Jl. Slamet Riyadi No.10, Surakarta">
+            <button type="button" class="loc-btn" onclick="useMyLocation()">📍 Lokasi saya</button>
+          </div>
+          <div class="hint" id="locHint">Ketik alamat atau patokan terdekat, atau pakai lokasi GPS.</div>
+        </div>
+
+        <div class="field">
+          <label for="fDesc">Kondisi ban</label>
+          <textarea id="fDesc" placeholder="Contoh: Ban belakang bocor kena paku, mobil masih bisa jalan pelan."></textarea>
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="submitService()">Kirim Panggilan Darurat</button>
+      </div>
+
+      <!-- TRACKING -->
+      <div class="panel">
+        <h3>Lacak status</h3>
+        <div class="sub">Masukkan kode pelacakan untuk melihat progres perbaikan.</div>
+        <div class="lookup-row">
+          <input id="lookupInput" type="text" placeholder="Contoh: SVC-482913" class="mono">
+          <button class="btn btn-outline btn-sm" onclick="lookupService()">Lacak</button>
+        </div>
+
+        <div id="trackArea" style="margin-top:22px;">
+          <div class="track-empty">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#5a5c64" stroke-width="1.5"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Belum ada laporan aktif.<br>Kirim panggilan darurat atau masukkan kode pelacakan.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KENAPA KAMI ================= -->
+<section id="kenapa-kami">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">KENAPA AREMA BAN</div>
+      <h2>Bukan cuma jual ban, kami juga menjemput masalahnya</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f2efe8" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg>
+        </div>
+        <h3>Ban bergaransi resmi</h3>
+        <p>Semua produk berasal dari distributor resmi merek nasional maupun global.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f2efe8" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <h3>Respons cepat</h3>
+        <p>Rata-rata teknisi tiba di lokasi dalam 24 menit sejak laporan dikirim.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f2efe8" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Transparan dari awal sampai selesai</h3>
+        <p>Status laporan bisa dipantau sendiri lewat kode pelacakan, tanpa perlu telepon berulang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="kontak">
+  <div class="wrap foot-grid">
+    <div>
+      <div class="logo" style="margin-bottom:14px;">
+        <svg class="mark" viewBox="0 0 40 40" fill="none" width="30" height="30">
+          <circle cx="20" cy="20" r="18" fill="#1c1d21" stroke="#ff6a1a" stroke-width="2.5"/>
+          <circle cx="20" cy="20" r="7" fill="none" stroke="#f2efe8" stroke-width="2.5"/>
+        </svg>
+        <div class="name" style="color:#f2efe8;">AREMA<span>BAN</span></div>
+      </div>
+      <p style="font-size:13.5px; line-height:1.6; max-width:260px;">Toko ban mobil &amp; motor sekaligus layanan panggilan darurat ban bocor, siap membantu di manapun kamu berada.</p>
+    </div>
+    <div>
+      <h4>Navigasi</h4>
+      <ul>
+        <li><a href="#katalog">Katalog Ban</a></li>
+        <li><a href="#cara-kerja">Cara Kerja</a></li>
+        <li><a href="#layanan-darurat">Layanan Darurat</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Layanan</h4>
+      <ul>
+        <li><a href="#layanan-darurat">Tambal ban di lokasi</a></li>
+        <li><a href="#layanan-darurat">Ganti ban darurat</a></li>
+        <li><a href="#katalog">Beli ban baru</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontak</h4>
+      <ul>
+        <li>0812-3456-7890</li>
+        <li>halo@aremaban.com</li>
+        <li>Jl. Slamet Riyadi No. 88, Surakarta</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hazard-rule"></div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Arema Ban. Semua hak dilindungi.</span>
+    <span>Dibuat untuk demonstrasi produk.</span>
+  </div>
+</footer>
+
+<!-- ================= CART DRAWER ================= -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>Keranjang</h3>
+    <button class="drawer-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot" style="display:none;">
+    <div class="total-row"><span>Total</span><span id="cartTotal">Rp0</span></div>
+    <button class="btn btn-primary btn-block" onclick="checkoutWA()">Pesan</button>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ================= DATA ================= */
+const PRODUCTS = [
+  { id:'m1', cat:'mobil', brand:'Michelin', name:'Energy XM2+', size:'185/65 R15', price:985000, note:'Grip basah maksimal, cocok pemakaian harian dalam kota.' },
+  { id:'m2', cat:'mobil', brand:'Bridgestone', name:'Turanza T005', size:'195/60 R16', price:1250000, note:'Nyaman dan senyap, cocok untuk perjalanan jauh.' },
+  { id:'m3', cat:'mobil', brand:'GT Radial', name:'Champiro Eco', size:'185/70 R14', price:620000, note:'Hemat bahan bakar dengan daya tahan panjang.' },
+  { id:'m4', cat:'mobil', brand:'Achilles', name:'122', size:'205/55 R16', price:890000, note:'Handling stabil untuk kecepatan tinggi di tol.' },
+  { id:'m5', cat:'mobil', brand:'Dunlop', name:'SP Sport LM704', size:'195/65 R15', price:1050000, note:'Keseimbangan antara kenyamanan dan performa.' },
+  { id:'v1', cat:'motor', brand:'FDR', name:'Sport XR Evo', size:'90/80-17', price:245000, note:'Kompon lunak, cengkeraman kuat di tikungan.' },
+  { id:'v2', cat:'motor', brand:'IRC', name:'NR73', size:'80/90-17', price:210000, note:'Andal untuk pemakaian harian, tahan lama.' },
+  { id:'v3', cat:'motor', brand:'Corsa', name:'R46', size:'70/90-17', price:195000, note:'Pilihan ekonomis dengan kualitas terjaga.' },
+  { id:'v4', cat:'motor', brand:'Swallow', name:'SB129', size:'90/90-14', price:225000, note:'Cocok untuk skuter matic harian.' },
+  { id:'v5', cat:'motor', brand:'Federal', name:'Sabre', size:'100/80-17', price:260000, note:'Alur tapak dalam, stabil saat hujan.' },
+];
+
+const WA_NUMBER = '6281234567890'; // ganti dengan nomor WhatsApp bengkel
+
+const STAGES = [
+  { key:'diterima',  label:'Permintaan diterima', desc:'Laporan kamu sudah kami terima dan sedang dicarikan teknisi terdekat.' },
+  { key:'menuju',    label:'Teknisi menuju lokasi', desc:'Teknisi sedang dalam perjalanan membawa peralatan tambal & ban cadangan.' },
+  { key:'pengerjaan',label:'Ban sedang ditangani', desc:'Teknisi memeriksa dan memperbaiki ban langsung di lokasi kamu.' },
+  { key:'selesai',   label:'Selesai', desc:'Ban sudah bisa digunakan kembali. Selamat melanjutkan perjalanan!' },
+];
+
+/* ================= STATE ================= */
+let cart = {}; // id -> qty
+let selectedVehicle = 'mobil';
+let services = {}; // code -> { ...data, stage:0, createdAt, eta }
+let activeCode = null;
+let simTimer = null;
+
+/* ================= UTIL ================= */
+function rupiah(n){ return 'Rp' + n.toLocaleString('id-ID'); }
+function timeNow(){ return new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}); }
+function toast(msg){
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.remove(); }, 2800);
+}
+function tireIconSVG(){
+  return `<svg viewBox="0 0 100 100" fill="none">
+    <circle cx="50" cy="50" r="38" fill="#1c1d21" stroke="#565860" stroke-width="4"/>
+    <circle cx="50" cy="50" r="16" fill="#35373f" stroke="#565860" stroke-width="4"/>
+    <circle cx="50" cy="50" r="4" fill="#f2efe8"/>
+  </svg>`;
+}
+
+/* ================= CATALOG RENDER ================= */
+function renderProducts(cat){
+  const grid = document.getElementById('productGrid');
+  const list = cat === 'semua' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===cat);
+  grid.innerHTML = list.map(p => `
+    <div class="p-card">
+      <div class="p-thumb">
+        <span class="tag">${p.cat === 'mobil' ? 'MOBIL' : 'MOTOR'}</span>
+        ${tireIconSVG()}
+      </div>
+      <div class="p-body">
+        <div class="p-brand">${p.brand}</div>
+        <div class="p-name">${p.name}</div>
+        <div class="p-size">${p.size}</div>
+        <div class="p-note">${p.note}</div>
+        <div class="p-foot">
+          <div class="p-price">${rupiah(p.price)}</div>
+          <button class="add-btn" onclick="addToCart('${p.id}')" aria-label="Tambah ke keranjang">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+document.getElementById('catTabs').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.cat-tab');
+  if(!btn) return;
+  document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(btn.dataset.cat);
+});
+renderProducts('semua');
+
+/* ================= CART ================= */
+function addToCart(id){
+  cart[id] = (cart[id] || 0) + 1;
+  renderCart();
+  const p = PRODUCTS.find(x=>x.id===id);
+  toast(`${p.name} ditambahkan ke keranjang`);
+}
+function changeQty(id, delta){
+  if(!cart[id]) return;
+  cart[id] += delta;
+  if(cart[id] <= 0) delete cart[id];
+  renderCart();
+}
+function removeItem(id){ delete cart[id]; renderCart(); }
+
+function renderCart(){
+  const ids = Object.keys(cart);
+  const badge = document.getElementById('cartBadge');
+  const totalQty = ids.reduce((s,id)=>s+cart[id],0);
+  badge.style.display = totalQty > 0 ? 'flex' : 'none';
+  badge.textContent = totalQty;
+
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+
+  if(ids.length === 0){
+    body.innerHTML = `<div class="empty-cart">Keranjang kamu masih kosong.<br>Yuk pilih ban di katalog.</div>`;
+    foot.style.display = 'none';
+    return;
+  }
+
+  let total = 0;
+  body.innerHTML = ids.map(id=>{
+    const p = PRODUCTS.find(x=>x.id===id);
+    const qty = cart[id];
+    const sub = p.price * qty;
+    total += sub;
+    return `
+      <div class="cart-item">
+        <div class="thumb">${tireIconSVG()}</div>
+        <div class="info">
+          <div class="n">${p.brand} ${p.name}</div>
+          <div class="s">${p.size}</div>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQty('${id}',-1)">−</button>
+            <span>${qty}</span>
+            <button class="qty-btn" onclick="changeQty('${id}',1)">+</button>
+          </div>
+          <button class="rm" onclick="removeItem('${id}')">Hapus</button>
+        </div>
+        <div class="price">${rupiah(sub)}</div>
+      </div>
+    `;
+  }).join('');
+  foot.style.display = 'block';
+  document.getElementById('cartTotal').textContent = rupiah(total);
+}
+function openCart(){ document.getElementById('cartDrawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); }
+function closeCart(){ document.getElementById('cartDrawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); }
+function checkoutWA(){
+  const ids = Object.keys(cart);
+  if(ids.length===0) return;
+  let lines = ['Halo Arema Ban, saya mau pesan:'];
+  let total = 0;
+  ids.forEach(id=>{
+    const p = PRODUCTS.find(x=>x.id===id);
+    const qty = cart[id];
+    total += p.price*qty;
+    lines.push(`- ${p.brand} ${p.name} (${p.size}) x${qty}`);
+  });
+  lines.push(`Total: ${rupiah(total)}`);
+  const msg = encodeURIComponent(lines.join('\n'));
+  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+}
+renderCart();
+
+/* ================= EMERGENCY SERVICE ================= */
+function setVehicle(v){
+  selectedVehicle = v;
+  document.querySelectorAll('.vehicle-toggle button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.vehicle === v);
+  });
+}
+function useMyLocation(){
+  const hint = document.getElementById('locHint');
+  if(!navigator.geolocation){
+    hint.textContent = 'Perangkat tidak mendukung GPS. Silakan ketik alamat manual.';
+    hint.className = 'hint err';
+    return;
+  }
+  hint.textContent = 'Mengambil lokasi...';
+  hint.className = 'hint';
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      const { latitude, longitude } = pos.coords;
+      document.getElementById('fLoc').value = `Koordinat: ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+      hint.textContent = 'Lokasi GPS berhasil diambil.';
+      hint.className = 'hint ok';
+    },
+    err=>{
+      hint.textContent = 'Tidak bisa mengambil lokasi otomatis (izin ditolak/tidak tersedia). Silakan ketik alamat manual.';
+      hint.className = 'hint err';
+    },
+    { timeout: 8000 }
+  );
+}
+function genCode(){
+  return 'SVC-' + Math.floor(100000 + Math.random()*900000);
+}
+function submitService(){
+  const name = document.getElementById('fName').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const loc = document.getElementById('fLoc').value.trim();
+  const desc = document.getElementById('fDesc').value.trim();
+
+  if(!name || !phone || !loc){
+    toast('Lengkapi nama, nomor HP, dan lokasi dulu ya');
+    return;
+  }
+
+  const code = genCode();
+  const eta = 15 + Math.floor(Math.random()*16); // 15-30 menit
+  services[code] = {
+    code, name, phone, loc, desc,
+    vehicle: selectedVehicle,
+    stage: 0,
+    eta,
+    createdAt: timeNow(),
+    stageTimes: [timeNow(), null, null, null],
+  };
+  activeCode = code;
+  renderTracking(code);
+  toast(`Laporan terkirim! Kode pelacakan: ${code}`);
+  startSimulation(code);
+
+  // siapkan link WA darurat
+  const waMsg = encodeURIComponent(
+    `Halo Arema Ban, saya butuh bantuan darurat ban bocor.\nKode: ${code}\nNama: ${name}\nHP: ${phone}\nKendaraan: ${selectedVehicle}\nLokasi: ${loc}\nKondisi: ${desc || '-'}`
+  );
+  window.__lastWA = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
+
+  // reset form
+  document.getElementById('fName').value = '';
+  document.getElementById('fPhone').value = '';
+  document.getElementById('fLoc').value = '';
+  document.getElementById('fDesc').value = '';
+}
+
+function startSimulation(code){
+  if(simTimer) clearInterval(simTimer);
+  simTimer = setInterval(()=>{
+    const s = services[code];
+    if(!s) { clearInterval(simTimer); return; }
+    if(s.stage < STAGES.length - 1){
+      s.stage += 1;
+      s.stageTimes[s.stage] = timeNow();
+      if(activeCode === code) renderTracking(code);
+      if(s.stage === STAGES.length - 1){
+        clearInterval(simTimer);
+        toast(`${code}: perbaikan ban selesai ✅`);
+      }
+    }
+  }, 7000);
+}
+
+function lookupService(){
+  const code = document.getElementById('lookupInput').value.trim().toUpperCase();
+  if(!code){ toast('Masukkan kode pelacakan dulu'); return; }
+  if(!services[code]){
+    toast('Kode tidak ditemukan. Coba kirim laporan baru.');
+    return;
+  }
+  activeCode = code;
+  renderTracking(code);
+}
+
+function renderTracking(code){
+  const s = services[code];
+  const area = document.getElementById('trackArea');
+  if(!s){
+    area.innerHTML = `<div class="track-empty">Belum ada laporan aktif.</div>`;
+    return;
+  }
+  const pillClass = ['p0','p1','p2','p3'][s.stage];
+
+  const timelineHTML = STAGES.map((st, i)=>{
+    let stateClass = '';
+    if(i < s.stage) stateClass = 'done';
+    else if(i === s.stage) stateClass = 'active';
+    const isLast = i === STAGES.length - 1;
+    const dotContent = i < s.stage ? '✓' : (i+1);
+    const time = s.stageTimes[i] ? `<div class="time">${s.stageTimes[i]}</div>` : '';
+    return `
+      <div class="t-item ${stateClass}">
+        ${!isLast ? '<div class="t-line"></div>' : ''}
+        <div class="t-dot">${dotContent}</div>
+        <div class="t-body">
+          <h4>${st.label}</h4>
+          <p>${st.desc}</p>
+          ${time}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  area.innerHTML = `
+    <div class="track-card-id">
+      <span class="code mono">${s.code}</span>
+      <span class="status-pill ${pillClass}">${STAGES[s.stage].label}</span>
+    </div>
+    <div class="hint" style="margin-bottom:14px;">
+      ${s.vehicle === 'mobil' ? '🚗' : '🏍️'} ${s.name} · ${s.loc} ${s.stage < STAGES.length-1 ? `· estimasi ${s.eta} menit` : ''}
+    </div>
+    <div class="timeline">${timelineHTML}</div>
+    <a class="btn btn-outline btn-block" style="margin-bottom:10px;" href="${window.__lastWA || ('https://wa.me/'+WA_NUMBER)}" target="_blank">Hubungi via WhatsApp</a>
+  `;
+}
+</script>
+</body>
+</html>
