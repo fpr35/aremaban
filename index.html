@@ -688,9 +688,9 @@ function tireIconSVG(){
   </svg>`;
 }
 function stockInfo(stock){
-  if(stock <= 0) return { label:'Stok habis', cls:'stock-out', canBuy:false };
-  if(stock <= 5) return { label:`Stok terbatas`, cls:'stock-low', canBuy:true };
-  return { label:'Tersedia', cls:'stock-ok', canBuy:true };
+  if(stock <= 0) return { label:'Stok: 0', cls:'stock-out', canBuy:false };
+  if(stock <= 5) return { label:`Stok: ${stock}`, cls:'stock-low', canBuy:true };
+  return { label:`Stok: ${stock}`, cls:'stock-ok', canBuy:true };
 }
 
 /* ================= CATALOG RENDER ================= */
@@ -710,9 +710,6 @@ function renderProducts(){
         <div class="p-name">${p.name}</div>
         <div class="p-size">${p.size}</div>
         <div class="p-note">${p.note}</div>
-        <div class="p-stock-line" style="color:${si.canBuy ? (p.stock<=5?'var(--amber)':'var(--green)') : 'var(--red)'}">
-          ${p.stock > 0 ? `Stok: ${p.stock} unit` : 'Stok habis, cek lagi nanti'}
-        </div>
         <div class="p-foot">
           <div class="p-price">${rupiah(p.price)}</div>
           <button class="add-btn" onclick="addToCart('${p.id}')" ${si.canBuy ? '' : 'disabled'} aria-label="Tambah ke keranjang">+</button>
